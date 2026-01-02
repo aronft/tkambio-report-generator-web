@@ -16,9 +16,9 @@ const props = withDefaults(
 <style lang="scss" scoped>
 .container {
   width: 100%;
-  max-width: variables.$mobile;
   margin-inline: auto;
   padding-inline: variables.$s-16;
+  max-width: variables.$desktop;
 
   @media (min-width: variables.$tablet) {
     max-width: variables.$tablet;
