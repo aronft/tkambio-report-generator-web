@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia'
-import type { AuthState } from '../types'
+import type { AuthState } from '../types/auth.types'
 import { ref } from 'vue'
 import { authService } from '../services/auth.service'
+import type { AxiosError } from 'axios'
+import { USER_TOKEN } from '../auth.constants'
 
 export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref(false)
+  const errorMessage = ref<string | null>(null)
 
-  const tokenExistente = localStorage.getItem('user_token')
+  const tokenExistente = localStorage.getItem(USER_TOKEN)
   const authState = ref<AuthState>({
     token: tokenExistente,
     status: tokenExistente ? 'loading' : 'unauthenticated',
@@ -35,9 +38,13 @@ export const useAuthStore = defineStore('auth', () => {
         token: response.access_token,
         status: 'authenticated',
       }
-      localStorage.setItem('user_token', response.access_token)
-    } catch (error) {
-      console.error('Login failed:', error)
+      localStorage.setItem(USER_TOKEN, response.access_token)
+    } catch (baseError: unknown) {
+      const error = baseError as AxiosError<{ message: string }>
+      if (error.response) {
+        errorMessage.value = error.response.data.message
+      }
+      throw error
     } finally {
       isLoading.value = false
     }
@@ -49,13 +56,15 @@ export const useAuthStore = defineStore('auth', () => {
       token: null,
       status: 'unauthenticated',
     }
-    localStorage.removeItem('user_token')
+    localStorage.removeItem(USER_TOKEN)
   }
 
   return {
     isLoading,
     authState,
+    errorMessage,
     login,
     checkAuth,
+    logout,
   }
 })

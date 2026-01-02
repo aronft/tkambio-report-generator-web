@@ -1,4 +1,6 @@
-import { useAuthStore } from '@/features/auth/store/useAuthStore'
+import { AUTH_ROUTES } from '@/features/auth/auth.constants'
+import { authRoutes } from '@/features/auth/auth.routes'
+import { useAuthStore } from '@/features/auth/store/auth.store'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -9,11 +11,7 @@ const router = createRouter({
       name: 'Home',
       component: () => import('../features/reports/views/ReportView.ts.vue'),
     },
-    {
-      path: '/login',
-      name: 'Login',
-      component: () => import('../features/auth/views/LoginView.ts.vue'),
-    },
+    ...authRoutes,
   ],
 })
 
@@ -26,9 +24,9 @@ router.beforeEach(async (to, from, next) => {
 
   const isAuthenticated = authStore.authState.status === 'authenticated'
 
-  if (to.name !== 'Login' && !isAuthenticated) {
-    next({ name: 'Login' })
-  } else if (to.name === 'Login' && isAuthenticated) {
+  if (to.name !== AUTH_ROUTES.LOGIN && !isAuthenticated) {
+    next({ name: AUTH_ROUTES.LOGIN })
+  } else if (to.name === AUTH_ROUTES.LOGIN && isAuthenticated) {
     next({ name: 'Home' })
   } else {
     next()
