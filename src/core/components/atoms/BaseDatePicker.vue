@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import BaseInput from './BaseInput.vue'
 import BaseIcon from './BaseIcon.vue'
@@ -6,7 +6,7 @@ import BaseIcon from './BaseIcon.vue'
 defineProps(['label', 'modelValue'])
 const emit = defineEmits(['update:modelValue'])
 
-const inputRef = ref(null)
+const inputRef = ref<HTMLInputElement | null>(null)
 
 const openPicker = () => {
   if (inputRef.value) {
@@ -23,7 +23,7 @@ const openPicker = () => {
         type="date"
         class="date-input"
         :value="modelValue"
-        @input="emit('update:modelValue', $event.target.value)"
+        @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       />
     </template>
 

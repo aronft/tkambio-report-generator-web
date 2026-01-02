@@ -10,6 +10,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node", "axios"]
+    "types": ["node", "axios", "vite-svg-loader", "vite/client"]
   }
 }
