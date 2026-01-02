@@ -4,10 +4,19 @@ import BaseInput from './BaseInput.vue'
 import BaseIcon from './BaseIcon.vue'
 
 defineProps(['label', 'modelValue'])
+const emit = defineEmits(['update:modelValue'])
+
+const inputRef = ref(null)
+
+const openPicker = () => {
+  if (inputRef.value) {
+    inputRef.value.showPicker()
+  }
+}
 </script>
 
 <template>
-  <BaseInput :label="label" @click="openPicker" class="date-picker">
+  <BaseInput :label="label" @click="openPicker" class="date-picker" :model-value="modelValue">
     <template #default>
       <input
         ref="inputRef"

@@ -1,20 +1,29 @@
 <script setup lang="ts">
+import BaseIcon from '@/core/components/atoms/BaseIcon.vue'
+
 interface Props {
   variant?: 'secondary'
+  isLoading?: boolean
 }
 withDefaults(defineProps<Props>(), {
   variant: 'secondary',
+  isLoading: false,
 })
 </script>
 
 <template>
-  <button v-bind="$attrs" :class="['button', `button--${variant}`]"><slot /></button>
+  <button v-bind="$attrs" :class="['button', `button--${variant}`]">
+    <slot />
+    <BaseIcon v-if="isLoading" class="button__loading" name="progress-activity" />
+  </button>
 </template>
 
 <style scoped lang="scss">
 .button {
   --button-bg-color: transparent;
   --button-text-color: currentColor;
+  display: flex;
+  gap: 1rem;
   border: none;
   background-color: var(--button-bg-color);
   color: var(--button-text-color);
@@ -36,6 +45,11 @@ withDefaults(defineProps<Props>(), {
   &--secondary {
     --button-bg-color: var(--secondary-color);
     --button-text-color: var(--gray-color-900);
+  }
+
+  .button__loading {
+    color: var(--button-text-color);
+    animation: spin 1s linear infinite;
   }
 }
 </style>
