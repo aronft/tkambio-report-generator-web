@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  variant?: 'secondary' | 'invalid'
+  variant?: 'secondary'
 }
 withDefaults(defineProps<Props>(), {
-  variant: 'invalid',
+  variant: 'secondary',
 })
 </script>
 
@@ -24,10 +24,13 @@ withDefaults(defineProps<Props>(), {
   padding-inline: 3rem;
   font-size: variables.$fs-16;
   font-weight: 400;
+  cursor: pointer;
 
-  &--invalid {
+  &:disabled {
     --button-bg-color: var(--gray-color-100);
     --button-text-color: var(--gray-color-900);
+    box-shadow: none;
+    cursor: default;
   }
 
   &--secondary {

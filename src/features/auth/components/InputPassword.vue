@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import BaseIcon from './BaseIcon.vue'
-import BaseInput from './BaseInput.vue'
+import BaseIcon from '@/core/components/atoms/BaseIcon.vue'
+import BaseInput from '@/core/components/atoms/BaseInput.vue'
 
 const props = defineProps<{
   label: string
