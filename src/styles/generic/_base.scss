@@ -1,5 +1,6 @@
 @use "@/styles/settings/colors.scss";
 @use "@/styles/settings/variables.scss";
+@use "@/styles/utils/_animation.scss";
 
 body {
   font-family: variables.$font-family;

@@ -48,7 +48,12 @@ const handleLogin = async () => {
         <template v-if="authStore.errorMessage">
           <span class="login__error">{{ authStore.errorMessage }}</span>
         </template>
-        <BaseButton type="submit" :disabled="!isValidForm">Iniciar sesión</BaseButton>
+        <BaseButton
+          type="submit"
+          :disabled="!isValidForm || authStore.isLoading"
+          :is-loading="authStore.isLoading"
+          >Iniciar sesión</BaseButton
+        >
       </form>
     </Container>
   </Layout>
