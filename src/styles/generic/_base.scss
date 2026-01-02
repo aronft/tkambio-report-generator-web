@@ -2,8 +2,10 @@
 @use "@/styles/settings/variables.scss";
 
 body {
-    font-family: variables.$font-family;
-    font-weight: 400;
+  font-family: variables.$font-family;
+  height: 100%;
+  min-height: 100svh;
+  font-weight: 400;
 }
 
 h1,
@@ -12,10 +14,17 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: variables.$font-family;
-    line-height: 1.5;
+  font-family: variables.$font-family;
+  line-height: 1.5;
 }
 
 h1 {
-    font-size: variables.$fs-28;
+  font-size: variables.$fs-28;
+  font-weight: 400;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
 }
